@@ -1,7 +1,7 @@
 exports.init = function(grunt) {
   var exports = {};
   
-  exports.casperjs = function(filepath, options, callback) {
+  exports.casperjs = function(filepath, options, callback, index) {
 
     var command = 'casperjs test',
         exec = require('child_process').exec;
@@ -9,7 +9,13 @@ exports.init = function(grunt) {
     // Add options documented in the following web site:
     //   http://casperjs.org/testing.html
     if (options.xunit) {
-      command += ' --xunit=' + options.xunit;
+
+      //vary the output filenames so we don't overwrite them
+      if (index){
+        command += ' --xunit=' + options.xunit.replace('.xml', '') + '-' + index + '.xml';
+      } else {
+        command += ' --xunit=' + options.xunit;
+      }
     }
 
     if (options.direct) {

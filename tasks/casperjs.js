@@ -33,6 +33,8 @@ module.exports = function(grunt) {
       });
     });
 
+    var index = 0;
+
     grunt.util.async.forEachSeries(
       filepaths, function(filepath, callback) {
         casperjs(filepath, options, function(err) {
@@ -40,7 +42,7 @@ module.exports = function(grunt) {
             grunt.warn(err);
           }
           callback();
-        });
+        }, index++);
       },
     done);
 
