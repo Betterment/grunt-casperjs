@@ -33,7 +33,8 @@ module.exports = function(grunt) {
       });
     });
 
-    var index = 0;
+    //add random index so log files don't overwrite one another
+    var index = Math.round(Math.random() * 1000);
 
     grunt.util.async.forEachSeries(
       filepaths, function(filepath, callback) {
@@ -42,7 +43,7 @@ module.exports = function(grunt) {
             grunt.warn(err);
           }
           callback();
-        }, index++);
+        }, index);
       },
     done);
 
