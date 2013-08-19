@@ -33,9 +33,6 @@ module.exports = function(grunt) {
       });
     });
 
-    //add random index so log files don't overwrite one another
-    var index = Math.round(Math.random() * 1000);
-
     grunt.util.async.forEachSeries(
       filepaths, function(filepath, callback) {
         casperjs(filepath, options, function(err) {
@@ -43,7 +40,7 @@ module.exports = function(grunt) {
             grunt.warn(err);
           }
           callback();
-        }, index);
+        }, Math.round(Math.random() * 1000)); //add random index so log files don't overwrite one another
       },
     done);
 
